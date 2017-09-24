@@ -6,7 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 import World from './World';
 import Anchor from './Anchor';
-import Block from './3d/Block';
+import Block from './3d/SvgBox';
 
 render(
 	<World>
