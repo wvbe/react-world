@@ -2,21 +2,17 @@ import React, {Component} from 'react';
 
 import perspective from './perspective';
 
-export default function Anchor ({ x, y, z, children }) {
-	const xyz = [x, y, z].map(n => parseInt(n));
-	const pixels = perspective.toPixels(xyz[0], xyz[1], xyz[2]);
-	const transform = perspective.toPixels(-0.5, -0.5, 1);
-	const styleAttr = {
-		position: 'absolute',
-		left: pixels[0] + 'px',
-		top: pixels[1] + 'px',
-		zIndex: xyz[0] - xyz[1] + xyz[2] + 10000,
-		transform: `translate(${transform[0]}px, ${transform[1]}px)`
-	};
+export default function Anchor ({ x = 0, y = 0, z = 0, children }) {
+	// parseInt coordinate props and round them off
+	const pixels = perspective.toPixels(...[x, y, z].map(n => parseInt(n))).map(c => Math.round(c));
 
 	return (
-		<div style={styleAttr}>
+		<svg { ...{
+			x: pixels[0],
+			y: pixels[1],
+			overflow: 'visible'
+		}}>
 			{ children }
-		</div>
+		</svg>
 	);
 }

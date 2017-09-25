@@ -1,24 +1,23 @@
 import React, {Component} from 'react';
 
-const viewportStyle = {
-	position: 'relative',
-	width: '800px',
-	height: '600px'
-};
+const props = {
+	// svg
+	width: '1px',
+	height: '1px',
+	overflow: 'visible',
 
-const worldStyle = {
-	position: 'absolute',
-	left: '50%',
-	top: '50%',
-	overflow: 'visible'
+	// css
+	style: {
+		position: 'absolute',
+		left: '50%',
+		top: '50%'
+	}
 };
 
 export default function World ({ children }) {
 	return (
-		<div style={ viewportStyle }>
-			<div style={ worldStyle }>
-				{ children }
-			</div>
-		</div>
+		<svg { ...props }>
+			{ children }
+		</svg>
 	);
 }

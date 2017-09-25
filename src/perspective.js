@@ -11,7 +11,7 @@ function createPerspective (degrees, tileSize) {
 
 	return {
 		tileSize: tileSize,
-		toPixels: (x, y, z, omitOffset) => {
+		toPixels: (x, y, z) => {
 			var cartX = (x + y) * _isometricCos,
 				cartY = (x - y) * _isometricSin;
 
@@ -20,7 +20,7 @@ function createPerspective (degrees, tileSize) {
 				cartY * tileSize - tileHeight * z // y
 			];
 		},
-		toCoords: (cartX, cartY, omitOffset) => {
+		toCoords: (cartX, cartY) => {
 
 			var isoY = (_isometricTan * cartX + cartY),
 				isoX = (cartY - isoY) / -_isometricSin - isoY;
