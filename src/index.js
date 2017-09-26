@@ -39,16 +39,17 @@ function putDownAStringOfBoxes (length, start = [0, 0, 0]) {
 		[-1,0,0],
 		[1,0,0],
 		[0, -1,0],
-		[0, 1,0],
-		[0, 0, -1],
-		[0, 0, 1],
+		[0, 1,0]
+		// [0, 0, -1],
+		// [0, 0, 1],
 	];
 
-	const plottedMovements = [
+	let plottedMovements = [
 		start
 	];
 
 	while (plottedMovements.length < length - 1) {
+		// console.log(plottedMovements.length);
 		const possibleMovements = randomMovements
 			// translate relative to absolute
 			.map(move => {
@@ -58,11 +59,20 @@ function putDownAStringOfBoxes (length, start = [0, 0, 0]) {
 
 			// filter out options already plotted
 			.filter(newCoords => {
-				console.log(newCoords.join(',') + ' > ' + plottedMovements.map(c => c.join(',')).join(' '));
 				return !plottedMovements.some(coords => coords.every((coord, i) => newCoords[i] === coord));
 			});
 
-		plottedMovements.push(possibleMovements[Math.floor(Math.random() * possibleMovements.length)]);
+		const chosenIndex = Math.round(Math.random() * 1000) % possibleMovements.length;
+		const chosenCoords = possibleMovements[chosenIndex];
+
+		if (!chosenCoords) {
+			// String boxed itself in, so remove one from string and try again
+			console.log('retry');
+			plottedMovements = [start];
+		}
+		else {
+			plottedMovements.push(chosenCoords);
+		}
 	}
 
 	return plottedMovements.map((coords, i) => (
@@ -73,7 +83,7 @@ function putDownAStringOfBoxes (length, start = [0, 0, 0]) {
 			z={ coords[2] }
 		>
 			<SvgBox
-				fill={ `rgba(${Math.round((i / length) * 255)}, ${Math.round((i / length) * 255)}, ${Math.round((i / length) * 255)}, 0.4)` }
+				fill={ `rgba(${Math.round((i / length) * 255)}, ${Math.round((i / length) * 255)}, ${Math.round((i / length) * 255)}, 0.6)` }
 			/>
 		</Anchor>
 	));
