@@ -7,6 +7,7 @@ import registerServiceWorker from './registerServiceWorker';
 import World from './World';
 import Anchor from './Anchor';
 import SvgBox from './3d/SvgBox';
+import SvgTile from './3d/SvgTile';
 
 
 function putDownSomeBoxesInARainbowFormation () {
@@ -33,66 +34,18 @@ function putDownSomeBoxesInARainbowFormation () {
 
 	return children;
 }
-
-function putDownAStringOfBoxes (length, start = [0, 0, 0]) {
-	const randomMovements = [
-		[-1,0,0],
-		[1,0,0],
-		[0, -1,0],
-		[0, 1,0]
-		// [0, 0, -1],
-		// [0, 0, 1],
-	];
-
-	let plottedMovements = [
-		start
-	];
-
-	while (plottedMovements.length < length - 1) {
-		// console.log(plottedMovements.length);
-		const possibleMovements = randomMovements
-			// translate relative to absolute
-			.map(move => {
-				const last = plottedMovements[plottedMovements.length - 1];
-				return last.map((coord, i) => coord + move[i]);
-			})
-
-			// filter out options already plotted
-			.filter(newCoords => {
-				return !plottedMovements.some(coords => coords.every((coord, i) => newCoords[i] === coord));
-			});
-
-		const chosenIndex = Math.round(Math.random() * 1000) % possibleMovements.length;
-		const chosenCoords = possibleMovements[chosenIndex];
-
-		if (!chosenCoords) {
-			// String boxed itself in, so remove one from string and try again
-			console.log('retry');
-			plottedMovements = [start];
-		}
-		else {
-			plottedMovements.push(chosenCoords);
-		}
-	}
-
-	return plottedMovements.map((coords, i) => (
-		<Anchor
-			key={'y' + i}
-			x={ coords[0] }
-			y={ coords[1] }
-			z={ coords[2] }
-		>
-			<SvgBox
-				fill={ `rgba(${Math.round((i / length) * 255)}, ${Math.round((i / length) * 255)}, ${Math.round((i / length) * 255)}, 0.6)` }
-			/>
-		</Anchor>
-	));
-}
+const randomPathOfPredefinedLength = require('./generators/randomPathOfPredefinedLength');
+const rectangularPlane = require('./generators/rectangularPlane');
+const subtractCoords = require('./combinators/subtractCoordinates');
 
 render(
 	<World>
-		<Anchor>
-			{ putDownAStringOfBoxes(100) }
+		<Anchor x={ -10 } y={ -10 }>
+			{ subtractCoords(subtractCoords(rectangularPlane(25,25), randomPathOfPredefinedLength(100, [10,10,0])), randomPathOfPredefinedLength(100, [10,10,0])).map((coord, i) => (
+				<Anchor key={ i } x={ coord[0] } y={ coord[1] } z={ coord[2] }>
+					<SvgTile />
+				</Anchor>
+			)) }
 		</Anchor>
 	</World>,
 	document.getElementById('root')
