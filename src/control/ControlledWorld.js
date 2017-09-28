@@ -8,12 +8,15 @@ import SvgTile from '../3d/SvgTile';
 
 import perspective from '../perspective';
 
-import randomPathOfPredefinedLength from '../generators/randomPathOfPredefinedLength';
-import rectangularPlane from '../generators/rectangularPlane';
-import subtractCoords from '../combinators/subtractCoordinates';
+import randomPathOfPredefinedLength from '../generators/primitives/randomPathOfPredefinedLength';
+import rectangularPlane from '../generators/primitives/rectangularPlane';
+import subtractCoords from '../generators/combinators/subtractCoordinates';
 import Space from '../Space';
 import color from 'color-js';
+import islandWorldGenerator from '../generators/islandWorldGenerator';
 console.log(color);
+
+const dummyWorld = islandWorldGenerator(1000);
 
 class ControlledWorld extends Component {
     spaces = [];
