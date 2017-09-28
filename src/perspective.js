@@ -1,11 +1,9 @@
-'use strict';
-
 function createPerspective (degrees, tileSize) {
 	let isometricAngle = degrees * (Math.PI / 180);
 	let _isometricCos = Math.cos(isometricAngle);
 	let _isometricSin = Math.sin(isometricAngle);
 	let _isometricTan = Math.tan(isometricAngle);
-	let _isometricDist = Math.sqrt(Math.pow(_isometricCos, 2) + Math.pow(_isometricSin, 2)); // pythagoras
+	// let _isometricDist = Math.sqrt(Math.pow(_isometricCos, 2) + Math.pow(_isometricSin, 2)); // pythagoras
 
 	let tileHeight = tileSize;
 

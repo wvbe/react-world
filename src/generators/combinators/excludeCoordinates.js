@@ -5,7 +5,7 @@
 //      XXXXXXXXXX
 //      XXXXXXXXXX
 
-module.exports = function subtracktCoords (set1, set2) {
+module.exports = function excludeCoordinates (set1, set2) {
 	return [
 		...set1,
 		...set2

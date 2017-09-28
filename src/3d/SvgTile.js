@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 import perspective from '../perspective';
 
@@ -15,13 +15,14 @@ let spatialCoordinates = BORDER_NODES
 	.map(coordinate => perspective.toPixels(...coordinate))
 	.map(cc => cc.map(c => c + BORDER_WIDTH));
 
-export default function SvgBox ({ stroke = 'black', fill = 'rgba(100,100,160,0.8)', strokeWidth = BORDER_WIDTH }) {
+export default function SvgBox ({ stroke = 'black', fill = 'rgba(100,100,160,0.8)', strokeWidth = BORDER_WIDTH, onClick }) {
 	return (
 		<polygon
 			points={ spatialCoordinates.map(c => c.join(',')).join(' ') }
 			stroke={ stroke }
 			fill={ fill }
 			strokeWidth={ strokeWidth }
+			onClick={ onClick }
 		/>
 	);
 }
