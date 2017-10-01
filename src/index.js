@@ -13,7 +13,7 @@ import SvgTile from './3d/SvgTile';
 import islandWorldGenerator from './generators/islandWorldGenerator';
 
 
-const dummyWorld = islandWorldGenerator(1000);
+const dummyWorld = islandWorldGenerator('acb', 1000);
 
 console.log(dummyWorld.map(d => d.length).join(', '));
 function Tile ({ x, y, z, content }) {
@@ -28,6 +28,7 @@ function Tile ({ x, y, z, content }) {
 }
 
 //console.log(viewportOffset)
+
 render(
 	<World>
 		{ dummyWorld.map((anchor, i) => (

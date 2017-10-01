@@ -1,3 +1,5 @@
+const RandomSeed = require('random-seed');
+
 // XXXXXX   XXXX
 //      XXXXX  X
 // XXX        XX
@@ -13,7 +15,9 @@ const randomMovements = [
 	// [0, 0, 0.3],
 ];
 
-module.exports = function randomPathOfPredefinedLength (length, start = [0, 0, 0]) {
+module.exports = function randomPathOfPredefinedLength (seed, length, start = [0, 0, 0]) {
+	const random = new RandomSeed(seed);
+
 
 	let plottedMovements = [
 		start
@@ -33,7 +37,7 @@ module.exports = function randomPathOfPredefinedLength (length, start = [0, 0, 0
 				return !plottedMovements.some(coords => coords.every((coord, i) => newCoords[i] === coord));
 			});
 
-		const chosenIndex = Math.round(Math.random() * 1000) % possibleMovements.length;
+		const chosenIndex = random.range(possibleMovements.length);
 		const chosenCoords = possibleMovements[chosenIndex];
 
 		if (!chosenCoords) {

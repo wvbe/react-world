@@ -1,7 +1,7 @@
 const randomPathOfPredefinedLength = require('./randomPathOfPredefinedLength');
 
 describe('randomPathOfPredefinedLength', () => {
-	const path = randomPathOfPredefinedLength(10);
+	const path = randomPathOfPredefinedLength('abc', 10);
 
 	it('Always has the requested length', () => {
 		expect(path)
