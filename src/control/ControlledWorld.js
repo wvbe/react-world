@@ -16,7 +16,7 @@ import color from 'color-js';
 import islandWorldGenerator from '../generators/islandWorldGenerator';
 console.log(color);
 
-const dummyWorld = islandWorldGenerator(1000);
+const dummyWorld = islandWorldGenerator('abc', 1000);
 
 class ControlledWorld extends Component {
     spaces = [];
@@ -24,8 +24,8 @@ class ControlledWorld extends Component {
 
     componentWillMount () {
         this.addSpace(rectangularPlane(20,20, [-10,-10, 0]));
-        this.addSpace(randomPathOfPredefinedLength(100));
-        this.addSpace(randomPathOfPredefinedLength(100));
+        this.addSpace(randomPathOfPredefinedLength('seed', 100));
+        this.addSpace(randomPathOfPredefinedLength('bad-seed', 100));
     }
 
     addSpace = (coords) => {
@@ -78,7 +78,7 @@ class ControlledWorld extends Component {
             <div>
                 <ul>
                     <li>
-                        <a onClick={ () => this.addSpace(randomPathOfPredefinedLength(50)) }>
+                        <a onClick={ () => this.addSpace(randomPathOfPredefinedLength(Math.random(), 50)) }>
                             randomPathOfPredefinedLength(50)
                         </a>
                     </li>

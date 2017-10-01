@@ -1,3 +1,5 @@
+import RandomSeed from 'random-seed';
+
 import rectangularPlane from './primitives/rectangularPlane';
 import expandCoordinates from './combinators/expandCoordinates';
 
@@ -10,34 +12,30 @@ const MIN_NEW_ISL_WIDTH = 2,
 	MIN_NEW_ISL_HEIGHT = 2,
 	MAX_NEW_ISL_HEIGHT = 10;
 
-export default function (maximumTiles) {
-
-	const squareSize = Math.ceil(Math.sqrt(maximumTiles));
-
+export default function (seed, maximumTiles) {
+	const random = new RandomSeed(seed);
 	let island = [];
 
 	let safety = 0;
 	let sls = 0;
 	while (island.length < maximumTiles) {
-		if (++safety > 1000) {
-			console.error('SAFETY');
+		if (++safety > 100) {
+			console.warn('Aborting islandWorldGenerator loop');
 			break;
 		}
 
-
 		const randomTile = island.length ?
-			island[island.length - 1] :
+			island[random.range(island.length)] :
 			[0, 0, 0];
 
 		const newPlane = rectangularPlane(
-			Math.round(Math.random() * 5),
-			Math.round(Math.random() * 5),
-			randomTile);
+			11,
+			11,
+			[-5 + randomTile[0], -5 + randomTile[1], 0]);
 
 		++sls;
 		island = expandCoordinates(island, newPlane);
 	}
-	console.info('SAFETY', safety, sls);
 
 	return [island];
 }
