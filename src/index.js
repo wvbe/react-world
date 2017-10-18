@@ -37,13 +37,16 @@ function putDownSomeBoxesInARainbowFormation () {
 const randomPathOfPredefinedLength = require('./generators/randomPathOfPredefinedLength');
 const rectangularPlane = require('./generators/rectangularPlane');
 const subtractCoords = require('./combinators/subtractCoordinates');
+const Space = require('./Space');
 
+const space = new Space(randomPathOfPredefinedLength(10));
 render(
 	<World>
-		<Anchor x={ -10 } y={ -10 }>
-			{ subtractCoords(subtractCoords(rectangularPlane(25,25), randomPathOfPredefinedLength(100, [10,10,0])), randomPathOfPredefinedLength(100, [10,10,0])).map((coord, i) => (
+		<Anchor x={ 0 } y={ 0 }>
+			{ space.getTilesInRenderingOrder().map((coord, i) => (
 				<Anchor key={ i } x={ coord[0] } y={ coord[1] } z={ coord[2] }>
-					<SvgTile />
+					<SvgBox label={ coord.join(',') }/>
+
 				</Anchor>
 			)) }
 		</Anchor>

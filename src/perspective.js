@@ -1,5 +1,14 @@
 'use strict';
 
+//     z+
+//     |     y+
+//     |    /
+//     |  /
+//     |/
+// 0,0  \
+//        \
+//          \ x+
+
 function createPerspective (degrees, tileSize) {
 	let isometricAngle = degrees * (Math.PI / 180);
 	let _isometricCos = Math.cos(isometricAngle);

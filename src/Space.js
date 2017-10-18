@@ -1,0 +1,30 @@
+module.exports = class Space {
+    constructor (tiles) {
+        this.tiles = tiles;
+        this.byXandY = {};
+    }
+
+    forXandY (x, y) {
+        const lookupString = x + ',' + y;
+
+        if (this.byXandY[lookupString] === undefined) {
+            this.byXandY[lookupString] = this.tiles.find(tile => tile[0] === x && tile[1] === y) || null;
+        }
+
+        return this.byXandY[lookupString];
+    }
+
+    getTilesInRenderingOrder () {
+        return this.tiles.sort((a, b) => {
+            // return (-a[0] + a[1] - a[2]) - (-b[0] + b[1] - b[2])
+            // const manhattanDistanceToCamera = -a[0] + a[1] - a[2];
+            //
+            const xY = (-b[0] + b[1]) - (-a[0] + a[1]);
+
+            return xY === 0 ?
+                a[2] - b[2] :
+                xY;
+        })
+
+    }
+};
