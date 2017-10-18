@@ -2,8 +2,6 @@ import React from 'react';
 
 import {render} from 'react-dom';
 
-import registerServiceWorker from './registerServiceWorker';
-
 import World from './World';
 import Anchor from './Anchor';
 import SvgBox from './3d/SvgBox';
@@ -44,19 +42,21 @@ const space = new Space(randomPathOfPredefinedLength(100));
 render(
 	<World>
 		<Anchor x={ 0 } y={ 0 }>
-			{ space.getTilesInRenderingOrder().map((coord, i) => (
-				<Anchor key={ i } x={ coord[0] } y={ coord[1] } z={ coord[2] }>
-					<SvgBox label={ coord.join(',') }/>
-				</Anchor>
-			)) }
+			{ space.getTilesInRenderingOrder().map((coord, i) => {
+				const shade = 1 - space.tiles.indexOf(coord) / space.tiles.length;
+				return (
+					<Anchor key={ i } x={ coord[0] } y={ coord[1] } z={ coord[2] }>
+						<SvgBox
+							fill={ `rgb(${Math.round(shade * 255)},${Math.round(shade * 255)},${Math.round(shade * 255)}` }
+							label={ coord.join('\n') }
+							stroke={'rgb(0,0,0)'}
+							strokeWidth={ 1 }
+						/>
+					</Anchor>
+                )
+            }) }
 
-			<SvgLine
-				path={space.tiles.map(cc => cc.map(c => c + 0.5))}
-				strokeWidth={ 3 }
-			/>
 		</Anchor>
 	</World>,
 	document.getElementById('root')
 );
-
-registerServiceWorker();

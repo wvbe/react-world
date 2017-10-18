@@ -35,6 +35,7 @@ export default function SvgBox ({ label, stroke = 'black', fill = 'rgba(100,100,
 			x2={ spatialCoordinates[3][0]}
 			y2={ spatialCoordinates[3][1]}
 			stroke={ stroke }
+			strokeWidth={ strokeWidth / 2 }
 		/>,
 		<line
 			key={ 'y-bar' }
@@ -43,6 +44,7 @@ export default function SvgBox ({ label, stroke = 'black', fill = 'rgba(100,100,
 			x2={ spatialCoordinates[1][0]}
 			y2={ spatialCoordinates[1][1]}
 			stroke={ stroke }
+			strokeWidth={ strokeWidth / 2 }
 		/>,
 		<line
 			key={ 'z-bar' }
@@ -51,12 +53,13 @@ export default function SvgBox ({ label, stroke = 'black', fill = 'rgba(100,100,
 			x2={ spatialCoordinates[5][0]}
 			y2={ spatialCoordinates[5][1]}
 			stroke={ stroke }
+			strokeWidth={ strokeWidth / 2 }
 		/>,
 		label ?
 			<text key={ 'label' }
-				  text-anchor={ 'middle' }
-				  x={ COORDINATE_CLOSEST_TO_CAMERA[0] }
-				  y={ COORDINATE_CLOSEST_TO_CAMERA[1] }
+			  text-anchor={ 'middle'}
+			  x={ COORDINATE_CLOSEST_TO_CAMERA[0] }
+			  y={ COORDINATE_CLOSEST_TO_CAMERA[1] + 3 }
 			>{ label }</text> :
 			null
 	];
