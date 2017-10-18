@@ -15,16 +15,12 @@ module.exports = class Space {
     }
 
     getTilesInRenderingOrder () {
-        return this.tiles.sort((a, b) => {
-            // return (-a[0] + a[1] - a[2]) - (-b[0] + b[1] - b[2])
-            // const manhattanDistanceToCamera = -a[0] + a[1] - a[2];
-            //
-            const xY = (-b[0] + b[1]) - (-a[0] + a[1]);
-
-            return xY === 0 ?
-                a[2] - b[2] :
-                xY;
-        })
+        return this.tiles
+            .concat()
+            .sort((a, b) => {
+                return (-b[0] + b[1]) - (-a[0] + a[1]) ||
+                    a[2] - b[2];
+            });
 
     }
 };

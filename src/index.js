@@ -7,6 +7,7 @@ import registerServiceWorker from './registerServiceWorker';
 import World from './World';
 import Anchor from './Anchor';
 import SvgBox from './3d/SvgBox';
+import SvgLine from './3d/SvgLine';
 import SvgTile from './3d/SvgTile';
 
 
@@ -39,16 +40,20 @@ const rectangularPlane = require('./generators/rectangularPlane');
 const subtractCoords = require('./combinators/subtractCoordinates');
 const Space = require('./Space');
 
-const space = new Space(randomPathOfPredefinedLength(10));
+const space = new Space(randomPathOfPredefinedLength(100));
 render(
 	<World>
 		<Anchor x={ 0 } y={ 0 }>
 			{ space.getTilesInRenderingOrder().map((coord, i) => (
 				<Anchor key={ i } x={ coord[0] } y={ coord[1] } z={ coord[2] }>
 					<SvgBox label={ coord.join(',') }/>
-
 				</Anchor>
 			)) }
+
+			<SvgLine
+				path={space.tiles.map(cc => cc.map(c => c + 0.5))}
+				strokeWidth={ 3 }
+			/>
 		</Anchor>
 	</World>,
 	document.getElementById('root')
