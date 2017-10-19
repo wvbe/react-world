@@ -1,7 +1,7 @@
 const rectangularPlane = require('./rectangularPlane');
 
 describe('rectangularPlane', () => {
-	const path = rectangularPlane(10, 10, [3, 3, 3]);
+	const path = rectangularPlane(10, 10);
 
 	it('Always has the requested length', () => {
 		expect(path)

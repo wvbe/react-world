@@ -10,7 +10,7 @@ module.exports = class Space {
         const lookupString = x + ',' + y;
 
         if (this.byXandY[lookupString] === undefined) {
-            this.byXandY[lookupString] = this.tiles.find(tile => tile[0] === x && tile[1] === y) || null;
+            this.byXandY[lookupString] = this.tiles.find(tile => tile.x === x && tile.y === y) || null;
         }
 
         return this.byXandY[lookupString];
@@ -20,8 +20,8 @@ module.exports = class Space {
         return this.tiles
             .concat()
             .sort((a, b) => {
-                return (-b[0] + b[1]) - (-a[0] + a[1]) ||
-                    a[2] - b[2];
+                return (-b.x + b.y) - (-a.x + a.y) ||
+                    a.z - b.z;
             });
 
     }

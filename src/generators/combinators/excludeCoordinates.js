@@ -9,9 +9,9 @@ module.exports = function excludeCoordinates (set1, set2) {
 	return [
 		...set1,
 		...set2
-	].filter(coords => {
-		const isInSet1 = set1.some(b => coords.every((x, i) => x === b[i]));
-		const isInSet2 = set2.some(b => coords.every((x, i) => x === b[i]));
+	].filter(a => {
+		const isInSet1 = set1.some(b => a.equals(b));
+		const isInSet2 = set2.some(b => a.equals(b));
 
 		return !(isInSet1 && isInSet2);
 	});
