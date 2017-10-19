@@ -1,3 +1,5 @@
+// @TODO: put in a pure-js folder together with Coordinate
+
 module.exports = class Space {
     constructor (tiles) {
         this.tiles = tiles;
