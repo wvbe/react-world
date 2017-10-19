@@ -7,36 +7,10 @@ import {render} from 'react-dom';
 
 import registerServiceWorker from './registerServiceWorker';
 
-import World from './World';
-import Anchor from './Anchor';
-import SvgTile from './3d/SvgTile';
-import islandWorldGenerator from './generators/islandWorldGenerator';
-
-
-const dummyWorld = islandWorldGenerator('acb', 1000);
-
-console.log(dummyWorld.map(d => d.length).join(', '));
-function Tile ({ x, y, z, content }) {
-	return (
-		<Anchor x={ x } y={ y } z={ z }>
-			<SvgTile
-				fill={ 'rgba(100,100, 200, 0.4)' }
-				onClick={ () => console.log('Tile click', content) }
-			/>
-		</Anchor>
-	);
-}
-
-//console.log(viewportOffset)
+import App from './App';
 
 render(
-	<World>
-		{ dummyWorld.map((anchor, i) => (
-			<Anchor key={ i } z={ -0.1 * 1 }>
-				{ anchor.map((coord, j) => <Tile key={ j } x={ coord[0] } y={ coord[1] } z={ coord[2] } />) }
-			</Anchor>
-		)) }
-	</World>,
+	<App />,
 	document.getElementById('root')
 );
 

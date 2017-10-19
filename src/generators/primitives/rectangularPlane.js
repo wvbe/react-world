@@ -1,15 +1,12 @@
-// XXXXXXXXXXXXX
-// XXXXXXXXXXXXX
-// XXXXXXXXXXXXX
-// XXXXXXXXXXXXX
-// XXXXXXXXXXXXX
+const Coordinate = require('../Coordinate');
 
-module.exports = function randomPathOfPredefinedLength (width, height, start = [0, 0, 0]) {
+module.exports = function rectangularPlane (width, height, start = new Coordinate(0, 0, 0)) {
 	const coords = [];
 	const z = 0;
+
 	for (let x = 0; x < width; x++) {
 		for (let y = 0; y < height; y++) {
-			coords.push([x, y, z].map((x, i) => x + start[i]));
+			coords.push(start.clone().transform(x, y, z));
 		}
 	}
 

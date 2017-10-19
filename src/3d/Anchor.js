@@ -1,6 +1,6 @@
 import React from 'react';
 
-import perspective from './perspective';
+import perspective from '../perspective';
 
 export default function Anchor ({ x = 0, y = 0, z = 0, children }) {
 	// parseInt coordinate props and round them off

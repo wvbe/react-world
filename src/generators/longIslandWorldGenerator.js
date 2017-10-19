@@ -19,20 +19,18 @@ export default function (seed, maximumTiles) {
 			break;
 		}
 		const randomTile = blob[seed.range(blob.length)];
-
-		const newPlane = rectangularPlane(
-			9,
-			9,
-			randomTile.clone().transform(-4, -4, 0));
+		const newPlane = randomPathOfPredefinedLength(seed, seed.range(10), randomTile);
 
 		++sls;
 
 		blob = expandCoordinates(blob, newPlane);
 	}
 
-	const start = blob[seed.range(blob.length)];
-
-	const path = randomPathOfPredefinedLength(seed, 20 + seed.range(10), start);
+	const randomTile = blob[seed.range(blob.length)];
+	const path = rectangularPlane(
+		9,
+		9,
+		randomTile.clone().transform(-4, -4, 0));
 
 	console.log(path);
 	// blob = growFromEdges(seed, 3, 0.2);

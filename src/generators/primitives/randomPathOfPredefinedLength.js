@@ -1,5 +1,5 @@
 const RandomSeed = require('random-seed');
-
+const Coordinate = require('../Coordinate');
 // XXXXXX   XXXX
 //      XXXXX  X
 // XXX        XX
@@ -15,39 +15,32 @@ const randomMovements = [
 	// [0, 0, 0.3],
 ];
 
-module.exports = function randomPathOfPredefinedLength (seed, length, start = [0, 0, 0]) {
-	const random = new RandomSeed(seed);
-
-
-	let plottedMovements = [
+module.exports = function randomPathOfPredefinedLength (seed, length, start = new Coordinate(0,0,0)) {
+	let blob = [
 		start
 	];
 
-	while (plottedMovements.length < length) {
+	while (blob.length < length) {
 		// console.log(plottedMovements.length);
 		const possibleMovements = randomMovements
-		// translate relative to absolute
-			.map(move => {
-				const last = plottedMovements[plottedMovements.length - 1];
-				return last.map((coord, i) => coord + move[i]);
-			})
+			// translate relative to absolute
+			.map(move => blob[blob.length - 1].clone().transform(...move))
 
 			// filter out options already plotted
-			.filter(newCoords => {
-				return !plottedMovements.some(coords => coords.every((coord, i) => newCoords[i] === coord));
-			});
+			.filter(newCoords => !blob.some(oldCoords => oldCoords.equals(newCoords)));
 
-		const chosenIndex = random.range(possibleMovements.length);
+		const chosenIndex = seed.range(possibleMovements.length);
 		const chosenCoords = possibleMovements[chosenIndex];
 
 		if (!chosenCoords) {
+			console.log('Reset');
 			// String boxed itself in, so remove one from string and try again
-			plottedMovements = [start];
+			blob = [start];
 		}
 		else {
-			plottedMovements.push(chosenCoords);
+			blob.push(chosenCoords);
 		}
 	}
 
-	return plottedMovements;
+	return blob;
 };
