@@ -1,9 +1,9 @@
-import rectangularPlane from './primitives/rectangularPlane';
-import randomPathOfPredefinedLength from './primitives/randomPathOfPredefinedLength';
-import expandCoordinates from './combinators/expandCoordinates';
-import excludeCoordinates from './combinators/excludeCoordinates';
+import rectangularPlane from '../primitives/rectangularPlane';
+import randomPathOfPredefinedLength from '../primitives/randomPathOfPredefinedLength';
+import expandCoordinates from '../combinators/expandCoordinates';
+// import excludeCoordinates from '../combinators/excludeCoordinates';
 
-const Coordinate = require('./Coordinate');
+const Coordinate = require('../Coordinate');
 
 export default function (seed, maximumTiles) {
 	let blob = [
@@ -11,7 +11,7 @@ export default function (seed, maximumTiles) {
 	];
 
 	let safety = 0;
-	let sls = 0;
+	// let sls = 0;
 
 	while (blob.length < maximumTiles) {
 		if (++safety > 100) {
@@ -21,7 +21,7 @@ export default function (seed, maximumTiles) {
 		const randomTile = blob[seed.range(blob.length)];
 		const newPlane = randomPathOfPredefinedLength(seed, seed.range(10), randomTile);
 
-		++sls;
+		// ++sls;
 
 		blob = expandCoordinates(blob, newPlane);
 	}

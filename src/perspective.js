@@ -1,5 +1,3 @@
-'use strict';
-
 //     z+
 //     |     y+
 //     |    /
@@ -42,4 +40,4 @@ function createPerspective (degrees, tileSize) {
 	}
 }
 
-module.exports = createPerspective(30, 30);
+module.exports = createPerspective(25, 30);

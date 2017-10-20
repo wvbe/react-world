@@ -1,6 +1,6 @@
-import randomPathOfPredefinedLength from './primitives/randomPathOfPredefinedLength';
-import rectangularPlane from './primitives/rectangularPlane';
-import subtractCoords from './combinators/reduceCoordinates';
+// import randomPathOfPredefinedLength from '../primitives/randomPathOfPredefinedLength';
+import rectangularPlane from '../primitives/rectangularPlane';
+// import subtractCoords from '../combinators/reduceCoordinates';
 
 export default function (maximumTiles) {
 

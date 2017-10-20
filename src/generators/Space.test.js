@@ -1,42 +1,41 @@
-const rectangularPlane = require('./Space');
+const Space = require('./Space');
 
-const testSpace = new Space([
-	/* x <= -1 */ [
-		[[
-			['-1,-1,-1'],
-			['-1,-1,0'],
-		],
-		/* y >= 0 */ [
-			/* z <= -1 */ [],
-			/* z >= 0 */ []
-		]]
-	],
-	/* x >= 0 */ [
-		/* y <= -1 */ [[
-			/* z <= -1 */ [],
-			/* z >= 0 */ []
-		],
-		/* y >= 0 */ [
-			/* z <= -1 */ [],
-			/* z >= 0 */ [
-				'0,0,0',
-				'0,0,1',
-			]
-		]]
-	]
+//  +y n=height
+// 111
+// 111
+// 113 +x
+const space = Space.fromJson([
+    [0, 0, 0],
+    [1, 0, 0],
+    [2, 0, 0],
+    [0, 1, 0],
+    [1, 1, 0], //4
+    [2, 1, 0],
+    [0, 2, 0],
+    [1, 2, 0],
+    [2, 2, 0],
+    [0, 0, 1],
+    [0, 0, 2]
 ]);
 
-it('Always has the requested length', () => {
-	expect(path)
-		.toHaveLength(100);
+describe('.fromJson', () => {
+    it('populates Space with Coordinate', () => {
+        expect(space.tiles.every(tile => tile.x !== undefined))
+            .toBeTruthy();
+    });
 });
 
-it('Only contains unique coordinates', () => {
-	expect(path.map(cc => cc.join(',')).filter((item, i, all) => all.indexOf(item) === i))
-		.toHaveLength(path.length);
+describe('#getTilesInRenderingOrder()', () => {
+	const renderingOrder = space.getTilesInRenderingOrder();
+
+    it('renders the furthest XY under everything else, aka first', () => {
+        expect(renderingOrder[0])
+            .toEqual({ x: 0, y: 2, z: 0 });
+    });
+
+    it('renders the closest XY with highest Z on top, aka last', () => {
+        expect(renderingOrder[renderingOrder.length - 1])
+            .toEqual({ x: 2, y: 0, z: 0 });
+    });
 });
 
-it('All coordinates have the same Z as start', () => {
-	expect(path.filter(cc => cc[2] === 3))
-		.toHaveLength(path.length);
-});

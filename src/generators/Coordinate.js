@@ -10,10 +10,12 @@ module.exports = class Coordinate {
 	}
 
 	equals (coord) {
-		return coord &&
+		return this === coord || (
+			coord &&
 			this.x === coord.x &&
 			this.y === coord.y &&
-			this.z === coord.z;
+			this.z === coord.z
+		);
 	}
 
 	transform (dx = 0, dy = 0, dz = 0) {
@@ -24,6 +26,7 @@ module.exports = class Coordinate {
 		return this;
 	}
 
+	// For debugging purposes only, may change without notice or tests
 	toString () {
 		return [this.x, this.y, this.z].join(',');
 	}
