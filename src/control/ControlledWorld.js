@@ -14,6 +14,7 @@ import SvgTile from '../3d/SvgTile';
 
 import randomPathOfPredefinedLength from '../generators/primitives/randomPathOfPredefinedLength';
 import rectangularPlane from '../generators/primitives/rectangularPlane';
+import expandCoordinates from '../generators/combinators/expandCoordinates';
 import subtractCoords from '../generators/combinators/subtractCoordinates';
 import islandWorldGenerator from '../generators/islandWorldGenerator';
 
@@ -25,7 +26,9 @@ class ControlledWorld extends Component {
     shouldComponentUpdate = () => false;
 
     componentWillMount () {
-        this.addSpace(rectangularPlane(20,20, new Coordinate(-10,-10, 0)));
+        this.addSpace(expandCoordinates(
+            rectangularPlane(20,20, new Coordinate(-10,-10, 0)),
+			randomPathOfPredefinedLength(seed, 100)));
         this.addSpace(randomPathOfPredefinedLength(seed, 100));
         this.addSpace(randomPathOfPredefinedLength(seed, 100));
     }
@@ -38,6 +41,7 @@ class ControlledWorld extends Component {
             saturation: 0.5 + Math.random() * 0.5,
             value: 0.5 + Math.random() * 0.5
         });
+        space.offset = [0,0]//[Math.random() - 0.5, Math.random() - 0.5];
 
         console.log('addSpace', space);
         this.spaces.push(space);
@@ -57,20 +61,17 @@ class ControlledWorld extends Component {
 
     renderSpace = (space, i) => {
         return (
-            <Anchor key={ i } x={ 0 } y={ 0 }>
-                { space.getTilesInRenderingOrder().map((coord, i) => {
-                    const shade = 1 - space.tiles.indexOf(coord) / space.tiles.length;
-                    return (
-                        <Anchor key={ i } { ...coord }>
-                            <SvgBox
-                                fill={ space.color }
-                                label={ coord.toString() }
-                                stroke={'rgb(0,0,0)'}
-                                strokeWidth={ 1 }
-                            />
-                        </Anchor>
-                    );
-                }) }
+            <Anchor key={ i } x={ space.offset[0] } y={ space.offset[1] }>
+                { space.getTilesInRenderingOrder().map((coord, i) => (
+                    <Anchor key={ i } { ...coord }>
+                        <SvgBox
+                            fill={ space.color }
+                            label={ coord.toString() }
+                            stroke={'rgb(0,0,0)'}
+                            strokeWidth={ 1 }
+                        />
+                    </Anchor>
+                )) }
             </Anchor>
         );
     };

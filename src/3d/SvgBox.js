@@ -25,6 +25,7 @@ export default class SvgBox extends Component {
         const {
             label,
             stroke = 'black',
+            innerStroke = 'rgba(0,0,0,0.3)',
             fill = 'rgba(100,100,160,0.9)',
             strokeWidth = BORDER_WIDTH
         } = this.props;
@@ -42,8 +43,8 @@ export default class SvgBox extends Component {
 				y1={COORDINATE_CLOSEST_TO_CAMERA[1]}
 				x2={spatialCoordinates[3][0]}
 				y2={spatialCoordinates[3][1]}
-				stroke={stroke}
-				strokeWidth={strokeWidth / 2}
+				stroke={innerStroke}
+				strokeWidth={strokeWidth}
 			/>,
 			<line
 				key={'y-bar'}
@@ -51,8 +52,8 @@ export default class SvgBox extends Component {
 				y1={COORDINATE_CLOSEST_TO_CAMERA[1]}
 				x2={spatialCoordinates[1][0]}
 				y2={spatialCoordinates[1][1]}
-				stroke={stroke}
-				strokeWidth={strokeWidth / 2}
+				stroke={innerStroke}
+				strokeWidth={strokeWidth}
 			/>,
 			<line
 				key={'z-bar'}
@@ -60,10 +61,10 @@ export default class SvgBox extends Component {
 				y1={COORDINATE_CLOSEST_TO_CAMERA[1]}
 				x2={spatialCoordinates[5][0]}
 				y2={spatialCoordinates[5][1]}
-				stroke={stroke}
-				strokeWidth={strokeWidth / 2}
+				stroke={innerStroke}
+				strokeWidth={strokeWidth}
 			/>,
-            label ?
+            false && label ?
 				<text key={'label'}
 					  textAnchor={'middle'}
 					  x={COORDINATE_CLOSEST_TO_CAMERA[0]}
